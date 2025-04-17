@@ -15,7 +15,7 @@
 <body>
 
   <h1>小念头教学AR版</h1>
-  <p>点击按钮可调速，播放或暂停，支持AR观看</p>
+  <p>点击按钮可调速，播放/暂停，支持AR</p>
 
   <model-viewer id="mv"
     src="wingchun.glb"
@@ -24,6 +24,7 @@
     autoplay
     animation-name="wingchun"
     camera-controls
+    disable-zoom
     exposure="1"
     shadow-intensity="1"
     environment-image="neutral"
@@ -45,6 +46,7 @@
 
     function setSpeed(rate) {
       viewer.animationSpeed = rate;
+      viewer.autoRotate = false; // 每次设置后强制关闭自动旋转
     }
 
     function togglePlay() {
@@ -54,6 +56,11 @@
         viewer.pause();
       }
     }
+
+    // 默认关闭自动旋转
+    viewer.addEventListener("load", () => {
+      viewer.autoRotate = false;
+    });
   </script>
 
 </body>
