@@ -5,46 +5,66 @@
   <title>小念头教学AR版</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    body { text-align: center; font-family: sans-serif; background: #f9f9f9; }
-    h1 { margin-top: 15px; }
-    model-viewer { width: 100%; height: 75vh; background-color: #000; }
-    .controls { margin-top: 10px; }
-    button { padding: 10px 15px; font-size: 16px; margin: 5px; }
+    body { font-family: sans-serif; text-align: center; margin: 0; padding: 20px; background-color: #f9f9f9; }
+    model-viewer { width: 100%; height: 70vh; background-color: #fff; }
+    .controls { margin-top: 15px; }
+    select, button { padding: 8px 14px; font-size: 16px; margin: 5px; }
   </style>
 </head>
 <body>
 
-  <h1>小念头教学AR版</h1>
-  <p>点击按钮可调速，观看动作细节</p>
+<h1>小念头教学AR版</h1>
+<p>点击按钮可调速，选择动画播放，支持AR浏览</p>
 
 <model-viewer id="mv"
   src="wingchun.glb"
-  animation-index="2"
   autoplay
+  camera-controls
   ar
   ar-modes="webxr scene-viewer quick-look"
-  camera-controls
   auto-rotate
+  shadow-intensity="1"
   environment-image="neutral"
   exposure="1"
-  shadow-intensity="1"
   style="background-color: #fff;"
 >
 </model-viewer>
 
+<div class="controls">
+  <label>选择动画：</label>
+  <select id="animationSelector">
+    <option value="0">动作1（可能是T Pose）</option>
+    <option value="1">动作2（你想要的动作）</option>
+  </select>
 
-  <div class="controls">
-    <button onclick="setSpeed(0.5)">0.5x 慢放</button>
-    <button onclick="setSpeed(1)">1x 正常</button>
-    <button onclick="setSpeed(2)">2x 快放</button>
-  </div>
+  <label>播放速度：</label>
+  <button onclick="setSpeed(0.5)">0.5x</button>
+  <button onclick="setSpeed(1)">1x</button>
+  <button onclick="setSpeed(2)">2x</button>
+</div>
 
-  <script>
-    const viewer = document.querySelector('#mv');
-    function setSpeed(rate) {
-      viewer.animationSpeed = rate;
+<script>
+  const viewer = document.querySelector("#mv");
+  const selector = document.querySelector("#animationSelector");
+
+  selector.addEventListener("change", () => {
+    const index = parseInt(selector.value);
+    viewer.animationName = viewer.availableAnimations[index];
+    viewer.play();
+  });
+
+  function setSpeed(rate) {
+    viewer.animationSpeed = rate;
+  }
+
+  // 默认选择第一个非T-Pose动作
+  viewer.addEventListener("load", () => {
+    if (viewer.availableAnimations.length > 1) {
+      viewer.animationName = viewer.availableAnimations[1]; // 动作2
+      selector.value = 1;
     }
-  </script>
+  });
+</script>
 
 </body>
 </html>
