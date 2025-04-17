@@ -17,20 +17,21 @@
   <h1>小念头教学AR版</h1>
   <p>点击按钮可调速，观看动作细节</p>
 
-  <model-viewer id="mv"
-    src="wingchun.glb"
-    ar
-    ar-modes="webxr scene-viewer quick-look"
-    autoplay
-    animation-name="Armature|reference|cxy|mocap_remap"
-    camera-controls
-    auto-rotate
-    exposure="1"
-    shadow-intensity="1"
-    environment-image="neutral"
-    style="--poster-color: transparent;"
-  >
-  </model-viewer>
+<model-viewer id="mv"
+  src="wingchun.glb"
+  animation-index="0"
+  autoplay
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+  camera-controls
+  auto-rotate
+  environment-image="neutral"
+  exposure="1"
+  shadow-intensity="1"
+  style="background-color: #fff;"
+>
+</model-viewer>
+
 
   <div class="controls">
     <button onclick="setSpeed(0.5)">0.5x 慢放</button>
