@@ -15,7 +15,7 @@
 <body>
 
   <h1>小念头教学AR版</h1>
-  <p>点击按钮可调速，观看动作细节</p>
+  <p>点击按钮可调速，播放或暂停，支持AR观看</p>
 
   <model-viewer id="mv"
     src="wingchun.glb"
@@ -24,7 +24,6 @@
     autoplay
     animation-name="wingchun"
     camera-controls
-    auto-rotate
     exposure="1"
     shadow-intensity="1"
     environment-image="neutral"
@@ -33,15 +32,27 @@
   </model-viewer>
 
   <div class="controls">
+    <button onclick="setSpeed(0.2)">0.2x 超慢</button>
     <button onclick="setSpeed(0.5)">0.5x 慢放</button>
     <button onclick="setSpeed(1)">1x 正常</button>
     <button onclick="setSpeed(2)">2x 快放</button>
+    <br>
+    <button onclick="togglePlay()">播放/暂停</button>
   </div>
 
   <script>
     const viewer = document.querySelector('#mv');
+
     function setSpeed(rate) {
       viewer.animationSpeed = rate;
+    }
+
+    function togglePlay() {
+      if (viewer.paused) {
+        viewer.play();
+      } else {
+        viewer.pause();
+      }
     }
   </script>
 
