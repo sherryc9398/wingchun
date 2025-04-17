@@ -15,40 +15,47 @@
 <body>
 
   <h1>小念头教学AR版</h1>
-  <p>点击按钮可调速，播放/暂停，支持AR</p>
+  <p>点击按钮可调速、播放/暂停，支持AR浏览</p>
 
   <model-viewer id="mv"
     src="wingchun.glb"
+    animation-name="wingchun"
+    autoplay
     ar
     ar-modes="webxr scene-viewer quick-look"
-    autoplay
-    animation-name="wingchun"
     camera-controls
-    disable-zoom
     exposure="1"
     shadow-intensity="1"
     environment-image="neutral"
-    style="--poster-color: transparent;"
+    style="--poster-color: transparent; background-color: #000;"
   >
   </model-viewer>
 
   <div class="controls">
     <button onclick="setSpeed(0.2)">0.2x 超慢</button>
-    <button onclick="setSpeed(0.5)">0.5x 慢放</button>
+    <button onclick="setSpeed(0.5)">0.5x 慢速</button>
     <button onclick="setSpeed(1)">1x 正常</button>
-    <button onclick="setSpeed(2)">2x 快放</button>
+    <button onclick="setSpeed(2)">2x 快速</button>
     <br>
-    <button onclick="togglePlay()">播放/暂停</button>
+    <button onclick="togglePlay()">播放 / 暂停</button>
   </div>
 
   <script>
     const viewer = document.querySelector('#mv');
 
+    // 默认关闭自动旋转
+    viewer.addEventListener("load", () => {
+      viewer.autoRotate = false;
+      viewer.animationName = "wingchun";
+    });
+
+    // 设置播放速度
     function setSpeed(rate) {
       viewer.animationSpeed = rate;
-      viewer.autoRotate = false; // 每次设置后强制关闭自动旋转
+      viewer.autoRotate = false; // 保证不自动转
     }
 
+    // 播放/暂停切换
     function togglePlay() {
       if (viewer.paused) {
         viewer.play();
@@ -56,11 +63,6 @@
         viewer.pause();
       }
     }
-
-    // 默认关闭自动旋转
-    viewer.addEventListener("load", () => {
-      viewer.autoRotate = false;
-    });
   </script>
 
 </body>
