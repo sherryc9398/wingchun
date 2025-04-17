@@ -1,22 +1,20 @@
 <script>
   const viewer = document.querySelector('#mv');
 
-  // 默认关闭自动旋转
   viewer.addEventListener("load", () => {
     viewer.autoRotate = false;
     viewer.animationName = "wingchun";
   });
 
-  // 设置播放速度（改进后）
+  // 修改后的 setSpeed 函数（100% 倍速生效）
   function setSpeed(rate) {
     viewer.pause();
     viewer.animationSpeed = rate;
-    viewer.currentTime = 0;
+    viewer.currentTime = 0;  // 重置动画播放位置
     viewer.play();
     viewer.autoRotate = false;
   }
 
-  // 播放/暂停切换
   function togglePlay() {
     if (viewer.paused) {
       viewer.play();
