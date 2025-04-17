@@ -2,40 +2,26 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>小念头</title>
+  <title>小念头教学 3D 模型展示</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    body { 
-      text-align: center; 
-      font-family: sans-serif; 
-      background: #f9f9f9; 
-    }
+    body { text-align: center; font-family: sans-serif; background: #f9f9f9; }
     h1 { margin-top: 15px; }
-    model-viewer { 
-      width: 100%; 
-      height: 75vh; 
-      background-color: #000; 
-    }
+    model-viewer { width: 100%; height: 75vh; background-color: #000; }
     .controls { margin-top: 10px; }
-    button, input[type=range] { 
-      padding: 10px 15px; 
-      font-size: 16px; 
-      margin: 5px; 
-    }
+    button, input[type=range] { padding: 10px 15px; font-size: 16px; margin: 5px; }
     #progress { width: 80%; }
   </style>
 </head>
 <body>
 
-  <h1>小念头</h1>
-  <p>拖动进度条查看细节</p>
+  <h1>小念头教学 3D 模型展示</h1>
+  <p>拖动查看动作细节，支持暂停和进度控制</p>
 
   <model-viewer id="mv"
     src="wingchun.glb"
     animation-name="wingchun"
     autoplay
-    ar
-    ar-modes="webxr scene-viewer quick-look"
     camera-controls
     exposure="1"
     shadow-intensity="1"
@@ -54,13 +40,11 @@
     const viewer = document.querySelector('#mv');
     const progress = document.querySelector('#progress');
 
-    // 默认关闭自动旋转
     viewer.addEventListener("load", () => {
       viewer.autoRotate = false;
       viewer.animationName = "wingchun";
     });
 
-    // 播放/暂停切换
     function togglePlay() {
       if (viewer.paused) {
         viewer.play();
@@ -69,22 +53,19 @@
       }
     }
 
-    // 拖动进度条，实时控制动画进度
     progress.addEventListener('input', () => {
       viewer.currentTime = progress.value * viewer.duration;
     });
 
-    // 动画播放过程中更新进度条
     viewer.addEventListener('timeupdate', () => {
       progress.value = viewer.currentTime / viewer.duration;
     });
 
-    // 动画播放结束后自动归零
     viewer.addEventListener('finished', () => {
-    viewer.pause();
-    viewer.currentTime = 0;
-    progress.value = 0;
-  });
+      viewer.pause();
+      viewer.currentTime = 0;
+      progress.value = 0;
+    });
   </script>
 
 </body>
