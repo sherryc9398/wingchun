@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>小念头教学AR版（带进度条）</title>
+  <title>小念头教学AR版</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body { 
@@ -27,8 +27,8 @@
 </head>
 <body>
 
-  <h1>小念头教学AR版（带进度条）</h1>
-  <p>拖动进度条查看细节，支持AR浏览</p>
+  <h1>小念头教学AR版</h1>
+  <p>拖动进度条查看细节</p>
 
   <model-viewer id="mv"
     src="wingchun.glb"
@@ -78,6 +78,13 @@
     viewer.addEventListener('timeupdate', () => {
       progress.value = viewer.currentTime / viewer.duration;
     });
+
+    // 动画播放结束后自动归零
+    viewer.addEventListener('finished', () => {
+    viewer.pause();
+    viewer.currentTime = 0;
+    progress.value = 0;
+  });
   </script>
 
 </body>
